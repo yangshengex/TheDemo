@@ -1,52 +1,62 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="resources/css/bootstrap.min.css">
-<script src="resources/js/jquery-1.11.3.min.js"></script>
-<script src="resources/js/bootstrap.min.js"></script>
+<!--引入所需资源 这里因为head.jsp中已经有了资源文件，所以我们就不用再引入了 不然一些js操作不能执行-->
+<script src="./resources/js/htmlJs/validateUser.js"></script>
 </head>
-<body>
-<nav class="navbar navbar-default ">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand"  href="#">欢迎使用Web图书馆</a>
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li class="active"><a><i class="glyphicon glyphicon-book" >
-                </i> 轻松掌握图书馆信息，节省时间，快乐学习</a></li>
-             </ul>
-    </div><!-- /.container-fluid -->
-</nav>
+<body >
+<jsp:include flush="true" page="/resources/common/head.jsp"></jsp:include>
 <h1>${some}</h1>
 <h1>${user.username}</h1>
-<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <form class="navbar-form navbar-right" role="search" action="http://localhost:8080/mycloud/login" method="post">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="account" autofocus required placeholder="请输入账号">
-                </div>
-                <div class="form-group">
-                    <input type="password" class="form-control" name="pwd" required placeholder="请输入密码">
-                </div>
-                <button type="submit" class="btn btn-info">登录</button>
-                <div class="form-group">
-                    <a href="" class="btn btn-success">注册</a>
-                </div>
-            </form>
-        </div><!-- /.navbar-collapse -->
-<div class="ca"></div>
+<c:if test = "${user.username!=null}">
+没有值啊
+</c:if>
+<!--注册的对话框-->
+<div class="modal" id="myModal">
+	<div class="modal-header">
+		<a class="close" data-dismiss="modal">×</a>
+		<h3>对话框标题</h3>
+	</div>
+	<div class="modal-body">
+	<form action="" method="POST" id="userRegister">
+            <div>
+                <input type="text" class="form-control" name="userName"  id="userName" placeholder="请输入用户名">
+            </div>
+            <div>
+                <input type="password" class="form-control" name="userPassWord" id="userPassWord" placeholder="请输入密码">
+            </div>
+            <div>
+                <input type="text"  class="form-control" name="userRePassWord" id="userRePassWord" placeholder="请再次输入密码">
+            </div>
+
+            <div>
+                <input type="text" class="form-control" name="userEmail" id="userEmail" placeholder="请输入邮箱">
+            </div>
+            <div>
+                <input type="text" class="form-control" name="userStudnum" id="userStudnum" placeholder="请输入学号">
+            </div>
+            <div>
+                <input type="text" class="form-control" name="verifyCode" id="verifyCode" placeholder="请输入验证码">
+            </div>
+
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn">关闭</a>
+		<a href="#" class="btn btn-primary">保存更新</a>
+	</div>
+	</from>
+</div>
+<!-- 巨幕 -->
+<div class="jumbotron">
+	<h1>这里娶一个标题吧</h1>
+	<p>后面慢慢想内容介绍吧，后面慢慢想内容介绍吧后面慢慢想内容介绍吧后面慢慢想内容介绍吧后面慢慢想内容介绍吧后面慢慢想内容介绍吧后面慢慢想内容介绍吧</p>
+	<p> <a class="btn btn-primary btn-large"> 了解更多请登录 </a> </p>
+</div>
+
 <button type="button" class="btn btn-primary" title="Popover title" data-container="body" data-toggle="popover"  data-trigger="focus" data-content="顶部的 Popover 中的一些内容">
 顶部的 Popover
 </button>
@@ -56,7 +66,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button> 
           <h4 class="modal-title text-center"  id="myModalLabel">用户的提示信息</h4>
         </div>
     </div>
@@ -76,20 +86,21 @@ $("[data-toggle='popover']").modal('hide');
 
 $('#medialog').click(function(){
 	//动态给出弹出位置
-  $('#myModal').css({
-      'top': function () {
-          //$(window).height()浏览器高度,然后减去自己的高度/2,实现弹出层垂直居中
-         // alert($(window).height());
-         // alert($(document).height());
-          return $(window).height()-250;
+ /* $('#myModal').css({
+      'top': function () {  
+          //$(window).height()浏览器高度,然后减去自己的高度/2,实现弹出层垂直居中  
+         // alert($(window).height());  
+         // alert($(document).height());  
+          return $(window).height()-250; 
 
       } ,
       'left':function(){
       	// alert($('#myModal').width())
       	 // alert($('#myModal').width())
-      	 return $(document).width()-600;
+      	 return $(document).width()-600;  
      }
   });
+  */
 $('#myModal').modal({
 	show:true,
 	backdrop:false,

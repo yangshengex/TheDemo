@@ -45,31 +45,38 @@ $('#vimg').click(function(){
 	imgid.setAttribute("src", "${pageContext.request.contextPath}/CreateVerificationCode.do?t=" + Math.random());
 });
 
-
+/**
+ * 弹出对话框
+ */
+$('#myModal').modal({
+	show:true,
+	backdrop:false,
+	keyboard:false
+});
 /**
  * 验证表单数据
  */
-    	$( "#my_from1" ).validate( {
+    	$( "#userRegister" ).validate( {
             onfocus: true,
             onsubmit: true,
             onkeyup: true,//这个地方要注意，修改去控制器验证的事件。
 			rules: {
-				username: {
+				userName: {
 					required: true,
 					minlength: 2,
 					maxlength:10
 				},
-				password: {
+				userPassWord: {
 					required: true,
 					minlength: 5
 				},
-				password2: {
+				userRePassWord: {
 					required: true,
 					minlength: 5,
-					equalTo: "#password"
+					equalTo: "#userPassWord"
 				},
 				agree1:"required",
-				txt_statu:{
+				verifyCode:{
 					
 					required:true,
 							remote : {
@@ -78,7 +85,7 @@ $('#vimg').click(function(){
 								dataType : "json",
 								data : {
 									pwd : function() {
-										return $("#txt_statu").val();// 这个是取要验证的密码
+										return $("#verifyCode").val();// 这个是取要验证的密码
 									}
 								},
 								dataFilter : function(data) {// 判断控制器返回的内容
@@ -92,22 +99,22 @@ $('#vimg').click(function(){
 						}
 					},
 			messages: {
-				username: {
+				userName: {
 					required: "Please enter a username",
 					minlength: "Your username must consist of at least 2 characters",
 					maxlength: "Your username must consist of at least 10 characters"
 				},
-				password: {
+				userPassWord: {
 					required: "Please provide a password",
 					minlength: "Your password must be at least 5 characters long"
 				},
-				password2: {
+				userRePassWord: {
 					required: "Please provide a password",
 					minlength: "Your password must be at least 5 characters long",
 					equalTo: "Please enter the same password as above"
 				},
 				agree1:'',
-				txt_statu:"验证不通过"
+				verifyCode:"验证不通过"
 			},
 			errorElement: "em",
 			errorPlacement: function ( error, element ) {

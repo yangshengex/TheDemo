@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Aspect @Service 
 public class Myinstance {
 	//标注切入点                 
-	@Pointcut("execution (* com.ys.demo.serviceimpl.*(..))")
+	@Pointcut("execution (* com.ys.demo.controller.*(..))")
 	//定义切入点的名称
 	private void anyMethod() {}
 	

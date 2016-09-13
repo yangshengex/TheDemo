@@ -10,12 +10,7 @@
 <script src="resources/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h1>${some}</h1>
-<h1>${user.username}</h1>
-<c:if test = "${user.username!=null}">
-没有值啊
-</c:if>
-<nav class="navbar navbar-default navbar-inverse">
+<nav class="navbar navbar-default ">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -25,42 +20,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">欢迎使用Web图书馆</a>
+            <a class="navbar-brand"  href="#">欢迎使用Web图书馆</a>
         </div>
-
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> 首页 <span class="sr-only">(current)</span></a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >我的图书<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a  target="main">
-                                <c:if text = "${user.username}">
-                                    <a  href="123" rel="tooltip" data-placement="left"  title="查询你已经借的书籍">已借书籍</a>
-                                </c:if>
-                            </a>
-                        </li>
-                        <li><a  target="main">
-                                <c:if text = "${user.username}">
-                                    <a href="321" rel="tooltip" data-placement="left"  title="查询你关注书籍的信息">关注书籍</a>
-                                </c:if>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">图书馆<span class="badge">50</span><span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">去借书</a></li>
-                        <li><a href="#">去还书 <span class="badge">50</span></a></li>
-                        <li><a href="#">关注书籍</a></li>
-                        <li><a href="#">请求意向</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-
+                <li class="active"><a><i class="glyphicon glyphicon-book" >
+                </i> 轻松掌握图书馆信息，节省时间，快乐学习</a></li>
+             </ul>
     </div><!-- /.container-fluid -->
 </nav>
 <h1>${some}</h1>
@@ -89,7 +56,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button> 
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
           <h4 class="modal-title text-center"  id="myModalLabel">用户的提示信息</h4>
         </div>
     </div>
@@ -109,18 +76,18 @@ $("[data-toggle='popover']").modal('hide');
 
 $('#medialog').click(function(){
 	//动态给出弹出位置
-  $('#myModal').css({  
-      'top': function () {  
-          //$(window).height()浏览器高度,然后减去自己的高度/2,实现弹出层垂直居中  
-         // alert($(window).height());  
-         // alert($(document).height());  
-          return $(window).height()-250; 
+  $('#myModal').css({
+      'top': function () {
+          //$(window).height()浏览器高度,然后减去自己的高度/2,实现弹出层垂直居中
+         // alert($(window).height());
+         // alert($(document).height());
+          return $(window).height()-250;
 
       } ,
       'left':function(){
       	// alert($('#myModal').width())
       	 // alert($('#myModal').width())
-      	 return $(document).width()-600;  
+      	 return $(document).width()-600;
      }
   });
 $('#myModal').modal({
