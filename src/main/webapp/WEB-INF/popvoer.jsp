@@ -10,9 +10,6 @@
 <script src="resources/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h1>${some}</h1>
-<h1>${user.username}</h1>
-
 <nav class="navbar navbar-default navbar-inverse">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -23,7 +20,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">云盘 Resource Anywhere</a>
+            <a class="navbar-brand" href="#">欢迎使用Web图书馆</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -31,25 +28,39 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> 首页 <span class="sr-only">(current)</span></a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">我的云盘 <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >我的图书<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/mycloud/queryMyFiles" target="main">我的文件</a></li>
-                        <li><a href="upload.jsp" target="main">上传文件</a></li>
-                        <li><a href="#">共享文件</a></li>
+                        <li><a  target="main">
+                                <c:if text = "${user.username}">
+                                    <a  href="123" rel="tooltip" data-placement="left"  title="查询你已经借的书籍">已借书籍</a>
+                                </c:if>
+                            </a>
+                        </li>
+                        <li><a  target="main">
+                                <c:if text = "${user.username}">
+                                    <a href="321" rel="tooltip" data-placement="left"  title="查询你关注书籍的信息">关注书籍</a>
+                                </c:if>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">站内信<span class="badge">50</span><span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">图书馆<span class="badge">50</span><span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">写邮件</a></li>
-                        <li><a href="#">收件箱<span class="badge">50</span></a></li>
-                        <li><a href="#">发件箱</a></li>
-                        <li><a href="#">草稿箱</a></li>
+                        <li><a href="#">去借书</a></li>
+                        <li><a href="#">去还书 <span class="badge">50</span></a></li>
+                        <li><a href="#">关注书籍</a></li>
+                        <li><a href="#">请求意向</a></li>
                     </ul>
                 </li>
             </ul>
             <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+    </div><!-- /.container-fluid -->
+</nav>
+<h1>${some}</h1>
+<h1>${user.username}</h1>
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <form class="navbar-form navbar-right" role="search" action="http://localhost:8080/mycloud/login" method="post">
                 <div class="form-group">
                     <input type="text" class="form-control" name="account" autofocus required placeholder="请输入账号">
@@ -63,12 +74,8 @@
                 </div>
             </form>
         </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-</nav>
-<hr>
-<hr>
 <div class="ca"></div>
-<button type="button" class="btn btn-primary" title="Popover title" data-container="body" data-toggle="popover"  data-content="顶部的 Popover 中的一些内容">
+<button type="button" class="btn btn-primary" title="Popover title" data-container="body" data-toggle="popover"  data-trigger="focus" data-content="顶部的 Popover 中的一些内容">
 顶部的 Popover
 </button>
 
@@ -91,7 +98,8 @@ $("[data-toggle='popover']").popover({
 	placement:'bottom',
 	hide:300
 });
-
+/*让所有有data-tooltip属性的标签执行tooltip函数，以免页面上标签的提示失效*/
+$("[rel]").tooltip();
 $("[data-toggle='popover']").modal('hide');
 
 $('#medialog').click(function(){
