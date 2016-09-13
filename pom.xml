@@ -64,7 +64,12 @@
             <artifactId>spring-jdbc</artifactId>
             <version>4.2.0.RELEASE</version>
         </dependency>
-
+        <!--数据库jar包-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.18</version>
+        </dependency>
         <!--aop编程所要的包-->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -113,5 +118,27 @@
                 </configuration>
             </plugin>
         </plugins>
+        <!--需要加载打包的资源-->
+        <resources>
+            <resource>
+                <!--需要打包的目录-->
+                <directory>src/main/java</directory>
+                <!--目录中的文件类型-->
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+
+            <resource>
+                <!--需要打包的目录-->
+                <directory>src/main/resources</directory>
+                <!--目录中的文件类型-->
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+
+        </resources>
     </build>
 </project>

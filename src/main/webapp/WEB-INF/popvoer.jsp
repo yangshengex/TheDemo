@@ -11,7 +11,7 @@
 </head>
 <body>
 <h1>${some}</h1>
-<h1>${user.name}</h1>
+<h1>${user.username}</h1>
 
 <nav class="navbar navbar-default navbar-inverse">
     <div class="container-fluid">
