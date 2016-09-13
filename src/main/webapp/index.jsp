@@ -16,39 +16,41 @@
 没有值啊
 </c:if>
 <!--注册的对话框-->
-<div class="modal" id="myModal">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog">
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">×</a>
 		<h3>对话框标题</h3>
 	</div>
-	<div class="modal-body">
-	<form action="" method="POST" id="userRegister">
-            <div>
-                <input type="text" class="form-control" name="userName"  id="userName" placeholder="请输入用户名">
-            </div>
-            <div>
-                <input type="password" class="form-control" name="userPassWord" id="userPassWord" placeholder="请输入密码">
-            </div>
-            <div>
-                <input type="text"  class="form-control" name="userRePassWord" id="userRePassWord" placeholder="请再次输入密码">
-            </div>
+	    <div class="modal-body">
+        <form action="" method="POST" id="userRegister">
+                <div>
+                    <input type="text" class="form-control" name="userName"  id="userName" placeholder="请输入用户名">
+                </div>
+                <div>
+                    <input type="password" class="form-control" name="userPassWord" id="userPassWord" placeholder="请输入密码">
+                </div>
+                <div>
+                    <input type="text"  class="form-control" name="userRePassWord" id="userRePassWord" placeholder="请再次输入密码">
+                </div>
 
-            <div>
-                <input type="text" class="form-control" name="userEmail" id="userEmail" placeholder="请输入邮箱">
-            </div>
-            <div>
-                <input type="text" class="form-control" name="userStudnum" id="userStudnum" placeholder="请输入学号">
-            </div>
-            <div>
-                <input type="text" class="form-control" name="verifyCode" id="verifyCode" placeholder="请输入验证码">
-            </div>
+                <div>
+                    <input type="text" class="form-control" name="userEmail" id="userEmail" placeholder="请输入邮箱">
+                </div>
+                <div>
+                    <input type="text" class="form-control" name="userStudnum" id="userStudnum" placeholder="请输入学号">
+                </div>
+                <div>
+                    <input type="text" class="form-control" name="verifyCode" id="verifyCode" placeholder="请输入验证码">
+                </div>
 
-	</div>
+	    </div>
 	<div class="modal-footer">
-		<a href="#" class="btn">关闭</a>
-		<a href="#" class="btn btn-primary">保存更新</a>
+		<a href="#" class="btn" data-dismiss="modal">关闭</a>
+		<a href="#" class="btn btn-primary submit" >保存更新</a>
 	</div>
 	</from>
+	</div>
 </div>
 <!-- 巨幕 -->
 <div class="jumbotron">
