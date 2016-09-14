@@ -9,4 +9,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getUser" resultType="com.ys.demo.po.UserInfo">
 		select * from userinfo where id = 4
 	</select>
+
+	<!-- 查询商品信息 -->
+	<select id="getUserByNameAndPwd" resultType="com.ys.demo.po.UserInfo">
+		select * from userinfo where password = '${pwd}'
+	</select>
+
 </mapper>
