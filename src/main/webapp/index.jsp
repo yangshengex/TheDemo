@@ -5,66 +5,73 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<!--引入所需资源 这里因为head.jsp中已经有了资源文件，所以我们就不用再引入了 不然一些js操作不能执行-->
-<script src="./resources/js/htmlJs/validateUser.js"></script>
+<!--引入所需资源-->
+<jsp:include page="./resources/common/head.jsp"></jsp:include>
 </head>
 <body >
-<jsp:include flush="true" page="/resources/common/head.jsp"></jsp:include>
+
 <h1>${some}</h1>
 <h1>${user.username}</h1>
 <c:if test = "${user.username!=null}">
 没有值啊
 </c:if>
 <!--注册的对话框-->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-<div class="modal-dialog">
-	<div class="modal-header">
-		<a class="close" data-dismiss="modal">×</a>
-		<h3>对话框标题</h3>
-	</div>
-	    <div class="modal-body">
-        <form action="" method="POST" id="userRegister">
-                <div>
-                    <input type="text" class="form-control" name="userName"  id="userName" placeholder="请输入用户名">
-                </div>
-                <div>
-                    <input type="password" class="form-control" name="userPassWord" id="userPassWord" placeholder="请输入密码">
-                </div>
-                <div>
-                    <input type="text"  class="form-control" name="userRePassWord" id="userRePassWord" placeholder="请再次输入密码">
-                </div>
+<div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-md" role="document">
+            <form id="userRegister" method="post"  action="wwww.baidu.com">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <h4 class="modal-title text-center" id="myModalLabel"><b>注册用户</b></h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-group  ">
+            <input type="text" name="userName" class="form-control " id="userName" placeholder="用户名称"/>
+          </div>
+          <div class="form-group ">
+            <input type="password" name="userPassWord" class="form-control" id="userPassWord" placeholder="用户密码"/>
+          </div>
+          <div class="form-group ">
+            <input type="password" name="userRePassWord" class="form-control" id="userRePassWord" placeholder="重复密码"/>
+          </div>
+            <div class="form-group ">
+              <input type="text" name="userEmail" class="form-control" id="userEmail" placeholder="邮箱"/>
+            </div>
+          <div class="form-group">
+            <input type="text" name="verifyvalue" class=" form-control col-md-5 col-offset-2 input" id="verifyvalue" placeholder="验证码"/>
+            <img id="verifycode"src="${pageContext.request.contextPath}/getverifycode" class"col-md-3 "><a herf="#" class="btn" id="vimg">看不清</a>
+          </div>
+        </div>
+        <div class="modal-footer ">
+          <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+          <button type="submit" id="btn_submit" class="btn btn-primary" ><span class="glyphicon glyphicon-floppy-disk" ></span>保存</button>
+        </div>
+      </div>
+      </from>
+    </div>
+  </div>
+  <!--/注册对话框结束-->
 
-                <div>
-                    <input type="text" class="form-control" name="userEmail" id="userEmail" placeholder="请输入邮箱">
-                </div>
-                <div>
-                    <input type="text" class="form-control" name="userStudnum" id="userStudnum" placeholder="请输入学号">
-                </div>
-                <div>
-                    <input type="text" class="form-control" name="verifyCode" id="verifyCode" placeholder="请输入验证码">
-                </div>
 
-	    </div>
-	<div class="modal-footer">
-		<a href="#" class="btn" data-dismiss="modal">关闭</a>
-		<a href="#" class="btn btn-primary submit" >保存更新</a>
-	</div>
-	</from>
-	</div>
-</div>
 <!-- 巨幕 -->
-<div class="jumbotron">
+<div class="jumbotron" >
+<div  style="margin-left:100px;margin-right:100px">
 	<h1>这里娶一个标题吧</h1>
-	<p>后面慢慢想内容介绍吧，后面慢慢想内容介绍吧后面慢慢想内容介绍吧后面慢慢想内容介绍吧后面慢慢想内容介绍吧后面慢慢想内容介绍吧后面慢慢想内容介绍吧</p>
-	<p> <a class="btn btn-primary btn-large"> 了解更多请登录 </a> </p>
+	<pre>
+	后面慢慢想内容介绍吧，后面慢慢想内容介绍吧后面慢慢想内容介绍吧后面慢慢想内容介绍吧后面慢慢想内容介绍吧后面慢慢想内容介绍吧后面慢慢绍吧后面慢慢想内容介绍吧后面慢慢想内容
+	介绍吧后面慢慢想内容介绍吧后面慢慢绍吧后面慢慢想内容介绍吧后面慢慢想内容介绍吧后面慢慢想内容介绍吧后面慢慢绍吧后面慢慢想内容介绍吧后面慢慢想
+	内容介绍吧后面慢慢想内容介绍吧后面慢慢想内容介绍吧
+	</pre>
+	<p>没有账号，赶紧注册吧!</p> <a class="btn btn-primary btn-large right"id="RegisterDialog"> 注册了解更多 </a>
+	</div>
 </div>
-
+<!-- /巨幕 -->
 <button type="button" class="btn btn-primary" title="Popover title" data-container="body" data-toggle="popover"  data-trigger="focus" data-content="顶部的 Popover 中的一些内容">
 顶部的 Popover
 </button>
 
 <h1 id="medialog" class="btn btn-info">点击弹出对话框</h1>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -76,38 +83,7 @@
 <hr>
 <hr>
 
+<script src="./resources/js/jquery.validate.js"></script>
+<script src="./resources/myJS/registervaridata.js"></script>
 </body>
-<script type="text/javascript">
-$("[data-toggle='popover']").popover({
-	placement:'bottom',
-	hide:300
-});
-/*让所有有data-tooltip属性的标签执行tooltip函数，以免页面上标签的提示失效*/
-$("[rel]").tooltip();
-$("[data-toggle='popover']").modal('hide');
-
-$('#medialog').click(function(){
-	//动态给出弹出位置
- /* $('#myModal').css({
-      'top': function () {  
-          //$(window).height()浏览器高度,然后减去自己的高度/2,实现弹出层垂直居中  
-         // alert($(window).height());  
-         // alert($(document).height());  
-          return $(window).height()-250; 
-
-      } ,
-      'left':function(){
-      	// alert($('#myModal').width())
-      	 // alert($('#myModal').width())
-      	 return $(document).width()-600;  
-     }
-  });
-  */
-$('#myModal').modal({
-	show:true,
-	backdrop:false,
-	keyboard:false
-});
-});
-</script>
 </html>

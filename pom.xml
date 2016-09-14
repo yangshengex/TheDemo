@@ -139,7 +139,15 @@
                     <include>**/*.properties</include>
                 </includes>
             </resource>
-
+            <resource>
+                <!--需要打包的目录-->
+                <directory>src/main/webapp</directory>
+                <!--目录中的文件类型-->
+                <includes>
+                    <include>**/*.css</include>
+                    <include>**/*.js</include>
+                </includes>
+            </resource>
         </resources>
     </build>
 </project>

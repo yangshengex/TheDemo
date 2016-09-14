@@ -63,9 +63,6 @@
                             <input type="password" class="form-control" name="pwd" required placeholder="请输入密码">
                         </div>
                         <button type="submit" class="btn btn-info">登录</button>
-                        <div class="form-group">
-                            <a href="" class="btn btn-success">注册</a>
-                        </div>
                   </form>
             </div><!-- /.navbar-collapse -->
             </c:when>

@@ -1,13 +1,15 @@
 package com.ys.demo.controller;
 
+import com.ys.demo.commons.CreateVerificationCode;
+import com.ys.demo.commons.RemoteValidate;
 import com.ys.demo.po.UserInfo;
 import com.ys.demo.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +19,7 @@ import java.io.IOException;
  * Created by yangshe on 2016/9/12.
  */
 @Controller
-public class HelloController {
+public class OpenerUserController {
     @Autowired
     private UserInfoService userInfoService;
 
@@ -80,4 +82,29 @@ public class HelloController {
         request.getRequestDispatcher("index.jsp").forward(request,response);
     }
 
+    /**
+     * 获取验证码图片
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    @RequestMapping("getverifycode")
+    public void getverifycode( HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        CreateVerificationCode verificationCode = new CreateVerificationCode();
+        verificationCode.getverifyCode(request,response);
+    }
+
+    /**
+     * 实时验证用户输入的验证码
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    @RequestMapping("beginverify")
+    public void beginverify(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RemoteValidate validate = new RemoteValidate();
+        validate.beginVarlidata(request,response);
+    }
 }
