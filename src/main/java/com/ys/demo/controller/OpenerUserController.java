@@ -53,13 +53,26 @@ public class OpenerUserController {
     @RequestMapping("UserLogin")
     public String Login( HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession().setAttribute("some","一些附加属性");
-        if(userInfoService==null){
-            System.out.println("userinfoService等于空啊啊啊啊啊");
+        if(userInfoService!=null){
+            String username = request.getParameter("username");
+            String userpwd= request.getParameter("userpassword");
+            System.out.println("username="+username+"userpwd="+userpwd);
+            UserInfo getuser = userInfoService.getUserByNameAndPwd(username,userpwd);
+            if(getuser!=null) {
+                request.getSession().setAttribute("user", getuser);
+                request.removeAttribute("errormessages");
+                return "LoginedUI";
+            }else {
+                //这样的服务器跳转在用户刷新的时候还是会到这里来，之后会一个提示错误信息，我们需要把用户导向index.jsp中,这样用户刷新的时候就不会请求这样页面了
+                //同时在jsp中移除这个session，这样就达到了第一次提示错误信息的效果，而用户刷新是不会再提示粗我信息
+                request.getSession().setAttribute("errormessages", "错误的用户名和密码");
+                //request.getRequestDispatcher("index.jsp").forward(request,response);
+                response.sendRedirect("index.jsp");
+                return null;
+            }
+        }else {
+            return null;
         }
-        System.out.println("userinfoService等于空啊啊啊啊啊"+userInfoService.toString());
-        UserInfo getuser = userInfoService.getuserService();
-        request.getSession().setAttribute("user",getuser);
-        return "LoginedUI";
     }
 
     /**
