@@ -12,9 +12,7 @@
 
 <h1>${some}</h1>
 <h1>${user.username}</h1>
-<c:if test = "${user.username!=null}">
-没有值啊
-</c:if>
+
 <!--注册的对话框-->
 <div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-md" role="document">
@@ -71,19 +69,26 @@
 </button>
 
 <h1 id="medialog" class="btn btn-info">点击弹出对话框</h1>
-<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
+<c:if test="${errormessages!=null}">
+
+<div class="modal fade" id="errModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-md" role="document">
       <div class="modal-content">
         <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button> 
-          <h4 class="modal-title text-center"  id="myModalLabel">用户的提示信息</h4>
+          <h4 class="modal-title text-center"  id="myModalLabel">${errormessages}</h4>
         </div>
     </div>
   </div>
-<hr>
-<hr>
+ </div>
+ </c:if>
 
+<hr>
+<hr>
+ <% request.getSession().removeAttribute("errormessages");%>
 <script src="./resources/js/jquery.validate.js"></script>
 <script src="./resources/myJS/registervaridata.js"></script>
+<script>
+</script>
 </body>
 </html>
