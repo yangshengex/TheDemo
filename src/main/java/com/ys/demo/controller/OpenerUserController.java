@@ -69,23 +69,23 @@ public class OpenerUserController {
      */
     @RequestMapping("UserLogin")
     public String Login( HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String server_token = (String) request.getSession().getAttribute("token");
-        String client_token = request.getParameter("token");
-        if(CreateToken.isRePeatSubmit(client_token,server_token)){
-            //TODO 希望服务器不做任何操作，直接停留在当前页面即可，不需要重新渲染界面
-            System.out.println("用户重复或者比通过正常渠道提交的，不做任何处理...直接渲染界面");
-            //直接跳转带登陆的页面，不需要进行数据库用户的验证并且把session中的错误信息移除
-            //request.getSession().removeAttribute("errormessages");
-            //如果session中有user属性，那说明是登陆成功之后的重复提交，那我们应该把页面导向LoginedUI
-            //如果没有session中的 user属性，那说明是用户没有登陆成功的重复提交，我们需要把页面导向index
-            if(request.getSession().getAttribute("user")!=null) {
-                request.getRequestDispatcher("../WEB-INF/LoginedUI.jsp").forward(request, response);
-            }else {
-                request.getRequestDispatcher("../WEB-INF/index.jsp").forward(request, response);
-            }
-            System.out.println("后面还是可以运行的");
-            return  null;
-        }
+//        String server_token = (String) request.getSession().getAttribute("token");
+//        String client_token = request.getParameter("token");
+//        if(CreateToken.isRePeatSubmit(client_token,server_token)){
+//            //TODO 希望服务器不做任何操作，直接停留在当前页面即可，不需要重新渲染界面
+//            System.out.println("用户重复或者比通过正常渠道提交的，不做任何处理...直接渲染界面");
+//            //直接跳转带登陆的页面，不需要进行数据库用户的验证并且把session中的错误信息移除
+//            //request.getSession().removeAttribute("errormessages");
+//            //如果session中有user属性，那说明是登陆成功之后的重复提交，那我们应该把页面导向LoginedUI
+//            //如果没有session中的 user属性，那说明是用户没有登陆成功的重复提交，我们需要把页面导向index
+//            if(request.getSession().getAttribute("user")!=null) {
+//                request.getRequestDispatcher("../WEB-INF/LoginedUI.jsp").forward(request, response);
+//            }else {
+//                request.getRequestDispatcher("../WEB-INF/index.jsp").forward(request, response);
+//            }
+//            System.out.println("后面还是可以运行的");
+//            return  null;
+//        }
         if(userInfoService!=null){
             String username = request.getParameter("username");
             String userpwd= request.getParameter("userpassword");
@@ -120,12 +120,6 @@ public class OpenerUserController {
     @RequestMapping("out_Login")
     public String OutLogin( HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //TODO 这里应该做用户是否已经登录的验证 session中判断 看看是否可以使用权限验证的方法
-        request.getSession().setAttribute("some","一些附加属性");
-        if(userInfoService==null){
-            System.out.println("userinfoService等于空啊啊啊啊啊");
-        }
-        System.out.println("userinfoService等于空啊啊啊啊啊"+userInfoService.toString());
-        UserInfo getuser = userInfoService.getuserService();
         request.getSession().removeAttribute("user");
         return "index";
     }
