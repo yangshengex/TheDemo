@@ -20,22 +20,23 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#">欢迎使用Web图书馆</a>
+           <c:if test="${user.stu_name!=null}"> <a class="navbar-brand  primary" href="#">用户 ： ${user.stu_name} </a></c:if>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <c:if test = "${user.username!=null}">
+        <c:if test = "${user.stu_name!=null}">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> 首页 <span class="sr-only">(current)</span></a></li>
+                <li class="active"><a href="indexController"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> 首页 <span class="sr-only">(current)</span></a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >我的图书<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a  target="main">
-                                <a  href="123" rel="tooltip" data-placement="left"  title="查询你已经借的书籍">已借书籍</a>
+                                <a  href="#" rel="tooltip" data-placement="left"  title="查询你已经借的书籍">已借书籍</a>
                              </a>
                         </li>
                         <li><a  target="main">
-                               <a href="321" rel="tooltip" data-placement="left"  title="查询你关注书籍的信息">关注书籍</a>
+                               <a href="#" rel="tooltip" data-placement="left"  title="查询你关注书籍的信息">关注书籍</a>
                             </a>
                         </li>
                     </ul>
@@ -53,22 +54,23 @@
             </ul>
             </c:if>
         <c:choose>
-            <c:when test = "${user.username==null}">
+            <c:when test = "${user.stu_name==null}">
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                  <form target="_parent" class="navbar-form navbar-right" role="search" action="${pageContext.request.contextPath }/UserLogin" method="post">
+                  <form id="Loginbtnform" target="_parent" class="navbar-form navbar-right" role="search" action="${pageContext.request.contextPath }/user/UserLogin" method="post">
+                        <input type="hidden"  name="token" value="${token}">
                         <div class="form-group">
-                              <input type="text" class="form-control" name="account" autofocus required placeholder="请输入账号">
+                            <input type="text" class="form-control" name="username" autofocus required placeholder="请输入账号（学号）">
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" name="pwd" required placeholder="请输入密码">
+                            <input type="password" class="form-control" name="userpassword" required placeholder="请输入密码">
                         </div>
-                        <button type="submit" class="btn btn-info">登录</button>
+                        <button type="button" id="Loginbtn" class="btn btn-info">登录</button>
                   </form>
             </div><!-- /.navbar-collapse -->
             </c:when>
              <c:otherwise>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                      <form target="_parent" class="navbar-form navbar-right" role="search" action="${pageContext.request.contextPath }/out_Login" method="post">
+                      <form target="_parent" class="navbar-form navbar-right" role="search" action="${pageContext.request.contextPath }/user/out_Login" method="post">
                                 <button type="submit" class="btn btn-info">退出</button>
                       </form>
                 </div>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ys.demo.mapper.UsersMapper">
+	
+
+		<!-- 插入User信息 -->
+	<insert id="insertUser" parameterType="com.ys.demo.po.Users">
+		insert into users (stu_num,stu_name,stu_pwd,stu_email) values(#{stu_num},#{stu_name},#{stu_pwd},#{stu_email})
+	</insert>
+
+	<!-- 查询商品信息 -->
+	<select id="getUserByNumAndPwd" resultType="com.ys.demo.po.Users">
+		select * from users where stu_num = '${num}'
+	</select>
+
+</mapper>

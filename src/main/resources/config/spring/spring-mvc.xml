@@ -21,4 +21,12 @@
         <property name="prefix" value="/WEB-INF/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+
+    <!--配置拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/user/UserLogin"/>
+            <bean class="com.ys.demo.interceptors.UserInterCeptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>

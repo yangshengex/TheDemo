@@ -1,3 +1,10 @@
+/*
+ *使用jquery空提交事件，防止刷新时提示重复提交表单
+ */
+ $('#Loginbtn').click(function(){
+    $('#Loginbtnform').submit();
+ });
+
 $('#RegisterDialog').click(function(){
 //动态给出弹出位置
     $('#myModal').css({
@@ -27,7 +34,32 @@ $('#RegisterDialog').click(function(){
 /**
  * 验证表单数据
  */
+
     $( "#userRegister" ).validate( {
+    submitHandler: function(form){
+       var formData = $('#userRegister').serializeArray();
+       var fordataJSOM ={};//定义一个对象
+       var JSONval;//接收对象转化的json数据
+       $.each(formData,function(){
+        fordataJSOM[this.name] = this.value;//为这个对象增加属性和值
+       });
+       JSONval = JSON.stringify(fordataJSOM);
+        //alert(JSON.stringify(fordataJSOM));
+        $.ajax({
+            url:'userRegister',
+            dataType:'json',
+            type:'post',
+            data:JSONval,
+            contentType:"application/json",
+            success:function(res){
+                alert('成功'+res);
+            },
+            error:function(res){
+                alert('失败'+res);
+            }
+
+        });
+    },
     /*
     下面的虽然是 boolean 型的，但建议除非要改为 false，否则别乱添加。
     触发方式 类型 描述 默认值
@@ -39,27 +71,33 @@ $('#RegisterDialog').click(function(){
     focusCleanup Boolean 如果是 true 那么当未通过验证的元素获得焦点时，移除错误提示。避免和 focusInvalid 一起用。 false
     */
     rules: {
-        userName: {
+        stu_num:{
+        required:true,
+        digits:true,
+        minlength:10,
+        maxlength:10
+        },
+        stu_name: {
             required: true,
             minlength: 2,
             maxlength:10
         },
-        userPassWord: {
+        stu_pwd: {
             required: true,
             minlength: 5
         },
-        userRePassWord: {
+        stu_repwd: {
             required: true,
             minlength: 5,
-            equalTo: "#userPassWord"
+            equalTo: "#stu_pwd"
         },
-        userEmail:{
+        stu_email:{
             required:true,
             email:true
         },
         verifyvalue:{
 
-            required:true,
+           // required:true,
                     remote : {
                         url : "beginverify",
                         type : "post",
@@ -80,21 +118,27 @@ $('#RegisterDialog').click(function(){
                 }
             },
     messages: {
-        userName: {
+        stu_num:{
+            required:"Please enter a stu_num",
+            digits:'Please enter digits',
+            minlength: "Your username must consist of at least 10 characters",
+            maxlength: "Your username must consist of at least 10 characters"
+        },
+        stu_name: {
             required: "Please enter a username",
             minlength: "Your username must consist of at least 2 characters",
             maxlength: "Your username must consist of at least 10 characters"
         },
-        userPassWord: {
+        stu_pwd: {
             required: "Please provide a password",
             minlength: "Your password must be at least 5 characters long"
         },
-        userRePassWord: {
+        stu_repwd: {
             required: "Please provide a password",
             minlength: "Your password must be at least 5 characters long",
             equalTo: "Please enter the same password as above"
         },
-        userEmail:{
+        stu_email:{
             required: "Please provide a email",
             email:"your email must is valid"
         },
@@ -138,5 +182,5 @@ $('#RegisterDialog').click(function(){
    * 得到验证码
    */
   $('#vimg').click(function(){
-  	$('#verifycode').attr("src", "/TheDemo/getverifycode?t=" + Math.random());
+  	$('#verifycode').attr("src", "/TheDemo/user/getverifycode?t=" + Math.random());
   });
