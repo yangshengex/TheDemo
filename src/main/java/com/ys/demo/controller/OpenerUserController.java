@@ -69,21 +69,27 @@ public class OpenerUserController {
      */
     @RequestMapping("UserLogin")
     public String Login( HttpServletRequest request, HttpServletResponse response) throws Exception {
-//        String server_token = (String) request.getSession().getAttribute("token");
-//        String client_token = request.getParameter("token");
-//        if(CreateToken.isRePeatSubmit(client_token,server_token)){
-//            //TODO 希望服务器不做任何操作，直接停留在当前页面即可，不需要重新渲染界面
-//            System.out.println("用户重复或者比通过正常渠道提交的，不做任何处理...直接渲染界面");
-//            //直接跳转带登陆的页面，不需要进行数据库用户的验证并且把session中的错误信息移除
-//            //request.getSession().removeAttribute("errormessages");
-//            //如果session中有user属性，那说明是登陆成功之后的重复提交，那我们应该把页面导向LoginedUI
-//            //如果没有session中的 user属性，那说明是用户没有登陆成功的重复提交，我们需要把页面导向index
-//            if(request.getSession().getAttribute("user")!=null) {
-//                request.getRequestDispatcher("../WEB-INF/LoginedUI.jsp").forward(request, response);
-//            }else {
-//                request.getRequestDispatcher("../WEB-INF/index.jsp").forward(request, response);
-//            }
-//            System.out.println("后面还是可以运行的");
+////        String server_token = (String) request.getSession().getAttribute("token");
+////        String client_token = request.getParameter("token");
+////        System.out.println("1server_token="+server_token+" ****client_token="+client_token);
+////        if(CreateToken.isRePeatSubmit(client_token,server_token)){
+////            //TODO 希望服务器不做任何操作，直接停留在当前页面即可，不需要重新渲染界面
+////            System.out.println("用户重复或者比通过正常渠道提交的，不做任何处理...直接渲染界面");
+////            //直接跳转带登陆的页面，不需要进行数据库用户的验证并且把session中的错误信息移除
+////            //request.getSession().removeAttribute("errormessages");
+////            //如果session中有user属性，那说明是登陆成功之后的重复提交，那我们应该把页面导向LoginedUI
+////            //如果没有session中的 user属性，那说明是用户没有登陆成功的重复提交，我们需要把页面导向index
+////            if(request.getSession().getAttribute("user")!=null) {
+////                 server_token = (String) request.getSession().getAttribute("token");
+////                 client_token = request.getParameter("token");
+////                System.out.println("2server_token="+server_token+" ****client_token="+client_token);
+////                request.getRequestDispatcher("../WEB-INF/LoginedUI.jsp").forward(request, response);
+////            }else {
+////                 server_token = (String) request.getSession().getAttribute("token");
+////                 client_token = request.getParameter("token");
+////                System.out.println("3server_token="+server_token+" ****client_token="+client_token);
+////                request.getRequestDispatcher("../WEB-INF/index.jsp").forward(request, response);
+////            }
 //            return  null;
 //        }
         if(userInfoService!=null){
@@ -95,14 +101,19 @@ public class OpenerUserController {
                 request.getSession().setAttribute("user", getuser);
                 request.removeAttribute("errormessages");
                 //登陆成功后重置token，避免重复提交
+                System.out.println("************************************************");
                 request.getSession().setAttribute("token",CreateToken.getCreateToken().makeToken());
                return "LoginedUI";
             }else {
-                request.getSession().setAttribute("errormessages", "错误的用户名和密码,请属性页面之后再登陆");
+                request.getSession().setAttribute("errormessages", "错误的用户名和密码...");
                 //登陆失败重置token，避免重复提交
-                request.getSession().setAttribute("token",CreateToken.getCreateToken().makeToken());
+               //request.getSession().setAttribute("token",CreateToken.getCreateToken().makeToken());
+                 String server_token = (String) request.getSession().getAttribute("token");
+                 String client_token = request.getParameter("token");
+                System.out.println("4server_token="+server_token+" ****client_token="+client_token);
                 //这样的服务器跳转在用户刷新的时候还是会到这里来，之后会一个提示错误信息，我们需要把用户导向index.jsp中,这样用户刷新的时候就不会请求这样页面了
                 //同时在jsp中移除这个session，这样就达到了第一次提示错误信息的效果，而用户刷新是不会再提示错误信息
+                //this.indexController(request,response);
                 return "index";
             }
         }else {
