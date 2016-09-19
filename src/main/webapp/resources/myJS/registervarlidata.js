@@ -75,7 +75,7 @@ $('#RegisterDialog').click(function(){
         required:true,
         digits:true,
         minlength:10,
-        maxlength:10
+        maxlength:11
         },
         stu_name: {
             required: true,
@@ -122,12 +122,12 @@ $('#RegisterDialog').click(function(){
             required:"Please enter a stu_num",
             digits:'Please enter digits',
             minlength: "Your username must consist of at least 10 characters",
-            maxlength: "Your username must consist of at least 10 characters"
+            maxlength: "Your username must consist of at largest 11 characters"
         },
         stu_name: {
             required: "Please enter a username",
             minlength: "Your username must consist of at least 2 characters",
-            maxlength: "Your username must consist of at least 10 characters"
+            maxlength: "Your username must consist of at largest 10 characters"
         },
         stu_pwd: {
             required: "Please provide a password",

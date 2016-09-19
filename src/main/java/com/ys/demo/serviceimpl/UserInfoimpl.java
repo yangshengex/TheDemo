@@ -46,18 +46,25 @@ public class UserInfoimpl implements UserInfoService {
     }
     @Override
     public int insertUsers(Users users) {
-        return usersMapper.insertUser(users);
+        int numLenght = users.getStu_num().length();
+        return usersMapper.insertUser(users,numLenght);
     }
 
     @Override
     public Users getUserByNumAndPwd(String num, String pwd) {
         //只需要按num查找出学生信息，再和用户填写的密码比对，一致则登录成功
+
         Users user = usersMapper.getUserByNumAndPwd(num);
-        if(user.getStu_pwd().equals(pwd)){
-            return user;
+        if (user != null) {
+            if (user.getStu_pwd().equals(pwd)) {
+                return user;
+            } else {
+                return null;
+            }
         }else {
             return null;
         }
+
     }
 
 

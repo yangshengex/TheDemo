@@ -8,6 +8,15 @@ public class Users {
     private String stu_name;
     private String stu_pwd;
     private String stu_email;
+    private byte type;
+
+    public byte getType() {
+        return type;
+    }
+
+    public void setType(byte type) {
+        this.type = type;
+    }
 
     public String getStu_num() {
         return stu_num;
@@ -48,6 +57,7 @@ public class Users {
                 ", stu_name='" + stu_name + '\'' +
                 ", stu_pwd='" + stu_pwd + '\'' +
                 ", stu_email='" + stu_email + '\'' +
+                ", type=" + type +
                 '}';
     }
 }

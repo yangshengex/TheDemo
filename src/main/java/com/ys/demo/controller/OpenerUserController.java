@@ -91,34 +91,34 @@ public class OpenerUserController {
 //            }
 //            return  null;
 //        }
-
-        if(userInfoService!=null){
-            String username = request.getParameter("username");
-            String userpwd= request.getParameter("userpassword");
-
-            Users getuser = userInfoService.getUserByNumAndPwd(username,userpwd);
-            if(getuser!=null) {
-                request.getSession().setAttribute("user", getuser);
-                request.removeAttribute("errormessages");
-                //登陆成功后重置token，避免重复提交
-                System.out.println("************************************************");
-                request.getSession().setAttribute("token",CreateToken.getCreateToken().makeToken());
-               return "LoginedUI";
-            }else {
-                request.getSession().setAttribute("errormessages", "错误的用户名和密码...");
-                //登陆失败重置token，避免重复提交
-               //request.getSession().setAttribute("token",CreateToken.getCreateToken().makeToken());
-                 String server_token = (String) request.getSession().getAttribute("token");
-                 String client_token = request.getParameter("token");
-                System.out.println("4server_token="+server_token+" ****client_token="+client_token);
-                //这样的服务器跳转在用户刷新的时候还是会到这里来，之后会一个提示错误信息，我们需要把用户导向index.jsp中,这样用户刷新的时候就不会请求这样页面了
-                //同时在jsp中移除这个session，这样就达到了第一次提示错误信息的效果，而用户刷新是不会再提示错误信息
-                //this.indexController(request,response);
-                return "index";
+        String username = request.getParameter("username");
+        String userpwd = request.getParameter("userpassword");
+        System.out.println("username="+username+"*********userpwd="+userpwd);
+            if (userInfoService != null && username != null && userpwd != null) {
+                Users getuser = userInfoService.getUserByNumAndPwd(username, userpwd);
+                if (getuser != null) {
+                    request.getSession().setAttribute("user", getuser);
+                    request.removeAttribute("errormessages");
+                    //登陆成功后重置token，避免重复提交
+                    System.out.println("************************************************");
+                    request.getSession().setAttribute("token", CreateToken.getCreateToken().makeToken());
+                    return "LoginedUI";
+                } else {
+                    request.getSession().setAttribute("errormessages", "错误的用户名和密码...");
+                    //登陆失败重置token，避免重复提交
+                    //request.getSession().setAttribute("token",CreateToken.getCreateToken().makeToken());
+                    String server_token = (String) request.getSession().getAttribute("token");
+                    String client_token = request.getParameter("token");
+                    System.out.println("4server_token=" + server_token + " ****client_token=" + client_token);
+                    //这样的服务器跳转在用户刷新的时候还是会到这里来，之后会一个提示错误信息，我们需要把用户导向index.jsp中,这样用户刷新的时候就不会请求这样页面了
+                    //同时在jsp中移除这个session，这样就达到了第一次提示错误信息的效果，而用户刷新是不会再提示错误信息
+                    //this.indexController(request,response);
+                    return "index";
+                }
+            } else {
+                throw new Exception("服务器错误");
             }
-        }else {
-            throw new Exception("服务器错误");
-        }
+
     }
 
     /**

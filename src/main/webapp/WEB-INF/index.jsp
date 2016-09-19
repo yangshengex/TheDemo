@@ -110,6 +110,15 @@ $('#errModal').modal({
     backdrop:'static',
     keyboard:false
   });
+$('#Loginbtn').focus(function()
+{
+    $('#Loginbtn').bind('keydown', function(event) {
+        if (event.keyCode == "13") {
+            $('#Loginbtnform').submit();
+        }
+
+    });
+})
 </script>
 </body>
 </html>

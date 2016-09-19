@@ -45,10 +45,19 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">图书馆<span class="badge">50</span><span class="caret"></span></a>
                     <ul class="dropdown-menu">
+                    <c:choose>
+                        <c:when test="${user.type==1}">
+                         <li><a href="#">增加图书</a></li>
+                         <li><a href="#">删除图书<span class="badge">50</span></a></li>
+                         <li><a href="#">修改图书</a></li>
+                        </c:when>
+                        <c:otherwise>
                         <li><a href="#">去借书</a></li>
                         <li><a href="#">去还书 <span class="badge">50</span></a></li>
                         <li><a href="#">关注书籍</a></li>
                         <li><a href="#">请求意向</a></li>
+                         </c:otherwise>
+                    </c:choose>
                     </ul>
                 </li>
             </ul>
