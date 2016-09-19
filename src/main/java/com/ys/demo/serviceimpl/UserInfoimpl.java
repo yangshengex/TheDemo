@@ -1,12 +1,13 @@
 package com.ys.demo.serviceimpl;
 
 import com.ys.demo.mapper.UserInfodao;
+import com.ys.demo.mapper.UsersMapper;
 import com.ys.demo.po.UserInfo;
+import com.ys.demo.po.Users;
 import com.ys.demo.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -16,6 +17,8 @@ import java.util.List;
 public class UserInfoimpl implements UserInfoService {
     @Autowired
     private UserInfodao userInfodao;
+    @Autowired
+    private UsersMapper usersMapper;
 
     @Override
     public UserInfo getuserService() {
@@ -41,4 +44,21 @@ public class UserInfoimpl implements UserInfoService {
         }
         return null;
     }
+    @Override
+    public int insertUsers(Users users) {
+        return usersMapper.insertUser(users);
+    }
+
+    @Override
+    public Users getUserByNumAndPwd(String num, String pwd) {
+        //只需要按num查找出学生信息，再和用户填写的密码比对，一致则登录成功
+        Users user = usersMapper.getUserByNumAndPwd(num);
+        if(user.getStu_pwd().equals(pwd)){
+            return user;
+        }else {
+            return null;
+        }
+    }
+
+
 }

@@ -1,16 +1,17 @@
 package com.ys.demo.controller;
 
-import com.sun.net.httpserver.Authenticator;
 import com.ys.demo.commons.CreateToken;
 import com.ys.demo.commons.CreateVerificationCode;
 import com.ys.demo.commons.RemoteValidate;
+import com.ys.demo.commons.Results;
 import com.ys.demo.po.UserInfo;
+import com.ys.demo.po.Users;
 import com.ys.demo.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -27,22 +28,20 @@ public class OpenerUserController {
     private UserInfoService userInfoService;
 
     /**
-     * 这个是测试的mapping
-     * @param model
-     * @param request
-     * @param response
      * @return
      */
-    @RequestMapping("helloController")
-    public String hello(Model model, HttpServletRequest request, HttpServletResponse response) {
-        model.addAttribute("some","一些附加属性");
-        if(userInfoService==null){
-            System.out.println("userinfoService等于空啊啊啊啊啊");
+    @RequestMapping("userRegister")
+    @ResponseBody
+    public Results hello(@RequestBody Users users) {
+        Results results = Results.FAIL;
+        System.out.println("访问到了这里。。。。。");
+        System.out.println("接收到的user信息"+users.toString());
+        //开始数据库操作
+        int counts = userInfoService.insertUsers(users);
+        if(counts>0){
+            results = Results.SUCCESS;
         }
-        System.out.println("userinfoService等于空啊啊啊啊啊"+userInfoService.toString());
-        UserInfo getuser = userInfoService.getuserService();
-        model.addAttribute("user",getuser);
-        return "popvoer";
+        return results;
     }
 
     /**
@@ -54,7 +53,7 @@ public class OpenerUserController {
     @RequestMapping("indexController")
     public String indexController(HttpServletRequest request, HttpServletResponse response) throws Exception {
        //创建一个token
-        request.getSession().removeAttribute("user");
+
         String server_token = CreateToken.getCreateToken().makeToken();
         request.getSession().setAttribute("token",server_token);
         return "index";
@@ -69,34 +68,35 @@ public class OpenerUserController {
      */
     @RequestMapping("UserLogin")
     public String Login( HttpServletRequest request, HttpServletResponse response) throws Exception {
-////        String server_token = (String) request.getSession().getAttribute("token");
-////        String client_token = request.getParameter("token");
-////        System.out.println("1server_token="+server_token+" ****client_token="+client_token);
-////        if(CreateToken.isRePeatSubmit(client_token,server_token)){
-////            //TODO 希望服务器不做任何操作，直接停留在当前页面即可，不需要重新渲染界面
-////            System.out.println("用户重复或者比通过正常渠道提交的，不做任何处理...直接渲染界面");
-////            //直接跳转带登陆的页面，不需要进行数据库用户的验证并且把session中的错误信息移除
-////            //request.getSession().removeAttribute("errormessages");
-////            //如果session中有user属性，那说明是登陆成功之后的重复提交，那我们应该把页面导向LoginedUI
-////            //如果没有session中的 user属性，那说明是用户没有登陆成功的重复提交，我们需要把页面导向index
-////            if(request.getSession().getAttribute("user")!=null) {
-////                 server_token = (String) request.getSession().getAttribute("token");
-////                 client_token = request.getParameter("token");
-////                System.out.println("2server_token="+server_token+" ****client_token="+client_token);
-////                request.getRequestDispatcher("../WEB-INF/LoginedUI.jsp").forward(request, response);
-////            }else {
-////                 server_token = (String) request.getSession().getAttribute("token");
-////                 client_token = request.getParameter("token");
-////                System.out.println("3server_token="+server_token+" ****client_token="+client_token);
-////                request.getRequestDispatcher("../WEB-INF/index.jsp").forward(request, response);
-////            }
+//        String server_token = (String) request.getSession().getAttribute("token");
+//        String client_token = request.getParameter("token");
+//        System.out.println("1server_token="+server_token+" ****client_token="+client_token);
+//        if(CreateToken.isRePeatSubmit(client_token,server_token)){
+//            //TODO 希望服务器不做任何操作，直接停留在当前页面即可，不需要重新渲染界面
+//            System.out.println("用户重复或者比通过正常渠道提交的，不做任何处理...直接渲染界面");
+//            //直接跳转带登陆的页面，不需要进行数据库用户的验证并且把session中的错误信息移除
+//            //request.getSession().removeAttribute("errormessages");
+//            //如果session中有user属性，那说明是登陆成功之后的重复提交，那我们应该把页面导向LoginedUI
+//            //如果没有session中的 user属性，那说明是用户没有登陆成功的重复提交，我们需要把页面导向index
+//            if(request.getSession().getAttribute("user")!=null) {
+//                 server_token = (String) request.getSession().getAttribute("token");
+//                 client_token = request.getParameter("token");
+//                System.out.println("2server_token="+server_token+" ****client_token="+client_token);
+//                request.getRequestDispatcher("../WEB-INF/LoginedUI.jsp").forward(request, response);
+//            }else {
+//                 server_token = (String) request.getSession().getAttribute("token");
+//                 client_token = request.getParameter("token");
+//                System.out.println("3server_token="+server_token+" ****client_token="+client_token);
+//                request.getRequestDispatcher("../WEB-INF/index.jsp").forward(request, response);
+//            }
 //            return  null;
 //        }
+
         if(userInfoService!=null){
             String username = request.getParameter("username");
             String userpwd= request.getParameter("userpassword");
 
-            UserInfo getuser = userInfoService.getUserByNameAndPwd(username,userpwd);
+            Users getuser = userInfoService.getUserByNumAndPwd(username,userpwd);
             if(getuser!=null) {
                 request.getSession().setAttribute("user", getuser);
                 request.removeAttribute("errormessages");
@@ -131,6 +131,7 @@ public class OpenerUserController {
     @RequestMapping("out_Login")
     public String OutLogin( HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //TODO 这里应该做用户是否已经登录的验证 session中判断 看看是否可以使用权限验证的方法
+
         request.getSession().removeAttribute("user");
         return "index";
     }

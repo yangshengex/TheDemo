@@ -33,8 +33,38 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
-
-
+        <!--日志文件-->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.0</version>
+        </dependency>
+        <!--spring4.0以上json和java对象的转换jackson包-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.6.1</version>
+        </dependency>
 <!--mybatis的包-->
         <dependency>
             <groupId>org.mybatis</groupId>
@@ -139,15 +169,7 @@
                     <include>**/*.properties</include>
                 </includes>
             </resource>
-            <resource>
-                <!--需要打包的目录-->
-                <directory>src/main/webapp</directory>
-                <!--目录中的文件类型-->
-                <includes>
-                    <include>**/*.css</include>
-                    <include>**/*.js</include>
-                </includes>
-            </resource>
+
         </resources>
     </build>
 </project>

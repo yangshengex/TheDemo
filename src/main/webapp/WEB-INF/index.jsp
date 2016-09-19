@@ -6,17 +6,17 @@
 <html>
 <head>
 <!--引入所需资源-->
-<jsp:include page="./resources/common/head.jsp"></jsp:include>
+<jsp:include page="../resources/common/head.jsp"></jsp:include>
 </head>
 <body >
 
 <h1>${some}</h1>
-<h1>${user.username}</h1>
+<h1>${user.stu_name}</h1>
 
 <!--注册的对话框-->
 <div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-md" role="document">
-            <form id="userRegister" method="post"  action="wwww.baidu.com">
+            <form id="userRegister" method="post" >
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -24,20 +24,23 @@
         </div>
         <div class="modal-body">
           <div class="form-group  ">
-            <input type="text" name="userName" class="form-control " id="userName" placeholder="用户名称"/>
+            <input type="text" name="stu_num" class="form-control " id="stu_num" placeholder="学号"/>
+          </div>
+          <div class="form-group  ">
+            <input type="text" name="stu_name" class="form-control " id="stu_name" placeholder="用户名称"/>
           </div>
           <div class="form-group ">
-            <input type="password" name="userPassWord" class="form-control" id="userPassWord" placeholder="用户密码"/>
+            <input type="password" name="stu_pwd" class="form-control" id="stu_pwd" placeholder="用户密码"/>
           </div>
           <div class="form-group ">
-            <input type="password" name="userRePassWord" class="form-control" id="userRePassWord" placeholder="重复密码"/>
+            <input type="password" name="stu_repwd" class="form-control" id="stu_repwd" placeholder="重复密码"/>
           </div>
             <div class="form-group ">
-              <input type="text" name="userEmail" class="form-control" id="userEmail" placeholder="邮箱"/>
+              <input type="text" name="stu_email" class="form-control" id="stu_email" placeholder="邮箱"/>
             </div>
           <div class="form-group">
             <input type="text" name="verifyvalue" class=" form-control col-md-5 col-offset-2 input" id="verifyvalue" placeholder="验证码"/>
-            <img id="verifycode"src="${pageContext.request.contextPath}/getverifycode" class"col-md-3 "><a herf="#" class="btn" id="vimg">看不清</a>
+            <img id="verifycode"src="${pageContext.request.contextPath}/user/getverifycode" class"col-md-3 "><a herf="#" class="btn" id="vimg">看不清</a>
           </div>
         </div>
         <div class="modal-footer ">
@@ -72,7 +75,7 @@
 <c:if test="${errormessages!=null}">
 
 <div class="modal fade" id="errModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-md" role="document">
+    <div class="modal-sm" role="document">
       <div class="modal-content">
         <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button> 
@@ -85,10 +88,28 @@
 
 <hr>
 <hr>
+<h1>${errormessages}</h1>
  <% request.getSession().removeAttribute("errormessages");%>
-<script src="./resources/js/jquery.validate.js"></script>
-<script src="./resources/myJS/registervaridata.js"></script>
+<script src="${pageContext.request.contextPath }/resources/js/jquery.validate.js"></script>
+<script src="${pageContext.request.contextPath }/resources/myJS/registervarlidata.js"></script>
 <script>
+$("[rel='tooltip']").tooltip();
+//规定提出框位置
+$('#errModal').css({
+        'width':400,
+        'top': function () {
+            return 100;
+
+        } ,
+        'left':function(){
+        	 return ($(document).width()-$('#errModal').width())/2;
+        }
+    });
+$('#errModal').modal({
+    show:true,
+    backdrop:'static',
+    keyboard:false
+  });
 </script>
 </body>
 </html>
