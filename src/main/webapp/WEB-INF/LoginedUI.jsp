@@ -18,11 +18,13 @@
 	<h1>这里是LoginedUI的界面</h1>
 	<p>登入界面登入界面登入界面登入界面登入界面登入界面登入界面登入界面登入界面登入界面登入界面登入界面登入界面登入界面登入界面登入界面</p>
 	<p> <a class="btn btn-primary btn-large"> ... </a> </p>
+	<img src="${pageContext.request.contextPath }/resources/uploadImg/7cd01efd-4bc4-4612-a963-e21943554fb8.jpg" alt="fsafsdafdsa"/>
 </div>
 <div class="modal fade " id="addBook_model" tabindex="-1" role="dialog" >
     <div class="modal-dialog" role="document">
           <form role="form" id="addbook_form" class="form-horizontal" action="${pageContext.request.contextPath }/books/addbook" method="post" enctype="multipart/form-data" >
           <input type="hidden" name="token" value="${token}">
+          <input type="hidden" name="add_user" value="${user.stu_num}">
                <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -73,6 +75,7 @@
         </form>
     </div>
 </div>
+
 <script src="${pageContext.request.contextPath }/resources/myJS/libraryJS.js"></script>
 <script>
 $("[rel='tooltip']").tooltip();

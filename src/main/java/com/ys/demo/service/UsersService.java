@@ -6,7 +6,7 @@ import com.ys.demo.po.Users;
 /**
  * Created by yangshe on 2016/9/12.
  */
-public interface UserInfoService {
+public interface UsersService {
     public UserInfo getuserService();
     public UserInfo getUserByNameAndPwd(String name,String pwd);
     //UsersMapper中dao

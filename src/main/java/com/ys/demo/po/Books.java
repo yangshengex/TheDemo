@@ -15,13 +15,13 @@ public class Books {
     private byte state;
     private String add_user;
     private String rent_user;
-    private Date add_time;
+    private String add_time;
 
-    public Date getAdd_time() {
+    public String getAdd_time() {
         return add_time;
     }
 
-    public void setAdd_time(Date add_time) {
+    public void setAdd_time(String add_time) {
         this.add_time = add_time;
     }
 

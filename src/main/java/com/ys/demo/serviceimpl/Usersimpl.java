@@ -4,7 +4,7 @@ import com.ys.demo.mapper.UserInfodao;
 import com.ys.demo.mapper.UsersMapper;
 import com.ys.demo.po.UserInfo;
 import com.ys.demo.po.Users;
-import com.ys.demo.service.UserInfoService;
+import com.ys.demo.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,7 @@ import java.util.List;
  * Created by yangshe on 2016/9/12.
  */
 @Service
-public class UserInfoimpl implements UserInfoService {
+public class Usersimpl implements UsersService {
     @Autowired
     private UserInfodao userInfodao;
     @Autowired

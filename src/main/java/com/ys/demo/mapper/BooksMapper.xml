@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ys.demo.mapper.BooksMapper">
+	
+
+		<!-- 插入User信息 -->
+	<insert id="insertBook" parameterType="com.ys.demo.po.Books">
+		insert into books (book_name,book_type,book_price,book_content,book_cover,add_user,add_time)
+			values(#{book_name},#{type},#{price},#{content},#{cover},#{add_user},#{add_time})
+	</insert>
+
+	<!-- 查询商品信息 -->
+	<select id="getUserByNumAndPwd" resultType="com.ys.demo.po.Users">
+		select * from users where stu_num = '${num}'
+	</select>
+
+</mapper>

@@ -4,9 +4,8 @@ import com.ys.demo.commons.CreateToken;
 import com.ys.demo.commons.CreateVerificationCode;
 import com.ys.demo.commons.RemoteValidate;
 import com.ys.demo.commons.Results;
-import com.ys.demo.po.UserInfo;
 import com.ys.demo.po.Users;
-import com.ys.demo.service.UserInfoService;
+import com.ys.demo.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +24,7 @@ import java.io.IOException;
 @RequestMapping("user/")
 public class OpenerUserController {
     @Autowired
-    private UserInfoService userInfoService;
+    private UsersService usersService;
 
     /**
      * @return
@@ -37,7 +36,7 @@ public class OpenerUserController {
         System.out.println("访问到了这里。。。。。");
         System.out.println("接收到的user信息"+users.toString());
         //开始数据库操作
-        int counts = userInfoService.insertUsers(users);
+        int counts = usersService.insertUsers(users);
         if(counts>0){
             results = Results.SUCCESS;
         }
@@ -98,8 +97,8 @@ public class OpenerUserController {
             String username = request.getParameter("username");
             String userpwd = request.getParameter("userpassword");
             System.out.println("username=" + username + "*********userpwd=" + userpwd);
-            if (userInfoService != null && username != null && userpwd != null) {
-                Users getuser = userInfoService.getUserByNumAndPwd(username, userpwd);
+            if (usersService != null && username != null && userpwd != null) {
+                Users getuser = usersService.getUserByNumAndPwd(username, userpwd);
                 if (getuser != null) {
                     request.getSession().setAttribute("user", getuser);
                     request.removeAttribute("errormessages");
