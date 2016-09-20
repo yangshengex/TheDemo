@@ -91,9 +91,13 @@ public class OpenerUserController {
 //            }
 //            return  null;
 //        }
-        String username = request.getParameter("username");
-        String userpwd = request.getParameter("userpassword");
-        System.out.println("username="+username+"*********userpwd="+userpwd);
+        if(request.getSession().getAttribute("user")==null){
+            //重置token使得退出后不用转到indexController页面刷新token登录
+            request.getSession().setAttribute("token",CreateToken.getCreateToken().makeToken());
+        }
+            String username = request.getParameter("username");
+            String userpwd = request.getParameter("userpassword");
+            System.out.println("username=" + username + "*********userpwd=" + userpwd);
             if (userInfoService != null && username != null && userpwd != null) {
                 Users getuser = userInfoService.getUserByNumAndPwd(username, userpwd);
                 if (getuser != null) {
@@ -101,10 +105,13 @@ public class OpenerUserController {
                     request.removeAttribute("errormessages");
                     //登陆成功后重置token，避免重复提交
                     System.out.println("************************************************");
+                    //设置的是登陆的token
                     request.getSession().setAttribute("token", CreateToken.getCreateToken().makeToken());
+                    //设置addbook的token
+                    //request.getSession().setAttribute("addbook_token", CreateToken.getCreateToken().makeToken());
                     return "LoginedUI";
                 } else {
-                    request.getSession().setAttribute("errormessages", "错误的用户名和密码...");
+                    request.getSession().setAttribute("messages", "错误的用户名和密码...");
                     //登陆失败重置token，避免重复提交
                     //request.getSession().setAttribute("token",CreateToken.getCreateToken().makeToken());
                     String server_token = (String) request.getSession().getAttribute("token");
@@ -129,9 +136,9 @@ public class OpenerUserController {
      * @throws IOException
      */
     @RequestMapping("out_Login")
-    public String OutLogin( HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //TODO 这里应该做用户是否已经登录的验证 session中判断 看看是否可以使用权限验证的方法
-
+    public String OutLogin( HttpServletRequest request, HttpServletResponse response) throws Exception {
+        //重置token使得退出后不用转到indexController页面刷新token登录
+        request.getSession().setAttribute("token",CreateToken.getCreateToken().makeToken());
         request.getSession().removeAttribute("user");
         return "index";
     }

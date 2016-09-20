@@ -72,53 +72,17 @@
 </button>
 
 <h1 id="medialog" class="btn btn-info">点击弹出对话框</h1>
-<c:if test="${errormessages!=null}">
 
-<div class="modal fade" id="errModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-sm" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button> 
-          <h4 class="modal-title text-center"  id="myModalLabel">${errormessages}</h4>
-        </div>
-    </div>
-  </div>
- </div>
- </c:if>
 
 <hr>
 <hr>
-<h1>${errormessages}</h1>
- <% request.getSession().removeAttribute("errormessages");%>
+<h1>${messages}</h1>
+
 <script src="${pageContext.request.contextPath }/resources/js/jquery.validate.js"></script>
 <script src="${pageContext.request.contextPath }/resources/myJS/registervarlidata.js"></script>
 <script>
 $("[rel='tooltip']").tooltip();
-//规定提出框位置
-$('#errModal').css({
-        'width':400,
-        'top': function () {
-            return 100;
 
-        } ,
-        'left':function(){
-        	 return ($(document).width()-$('#errModal').width())/2;
-        }
-    });
-$('#errModal').modal({
-    show:true,
-    backdrop:'static',
-    keyboard:false
-  });
-$('#Loginbtn').focus(function()
-{
-    $('#Loginbtn').bind('keydown', function(event) {
-        if (event.keyCode == "13") {
-            $('#Loginbtnform').submit();
-        }
-
-    });
-})
 </script>
 </body>
 </html>

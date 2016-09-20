@@ -47,7 +47,7 @@
                     <ul class="dropdown-menu">
                     <c:choose>
                         <c:when test="${user.type==1}">
-                         <li><a href="#">增加图书</a></li>
+                         <li><a href="#" id="addbook">增加图书</a></li>
                          <li><a href="#">删除图书<span class="badge">50</span></a></li>
                          <li><a href="#">修改图书</a></li>
                         </c:when>
@@ -87,5 +87,37 @@
         </c:choose>
     </div>
 </nav>
+<c:if test="${messages!=null}">
+
+<div class="modal fade" id="messages" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <h4 class="modal-title text-center"  id="myModalLabel">${messages}</h4>
+        </div>
+    </div>
+  </div>
+ </div>
+ </c:if>
+  <% request.getSession().removeAttribute("messages");%>
 </body>
+<script>
+//规定提出框位置
+$('#messages').css({
+        'width':400,
+        'top': function () {
+            return 100;
+
+        } ,
+        'left':function(){
+        	 return ($(document).width()-$('#messages').width())/2;
+        }
+    });
+$('#messages').modal({
+    show:true,
+    backdrop:'static',
+    keyboard:false
+  });
+</script>
 </html>
